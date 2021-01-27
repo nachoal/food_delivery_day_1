@@ -1,8 +1,9 @@
 class Router
   # add variable for sessions_controller and create instance var
-  def initialize(meals_controller, customers_controller)
-    @meals_controller = meals_controller
+  def initialize(meals_controller, customers_controller, sessions_controller)
+    @meals_controller     = meals_controller
     @customers_controller = customers_controller
+    @sessions_controller  = sessions_controller
     @running = true
   end
 
@@ -18,7 +19,6 @@ class Router
         end
       end
       print `clear`
-      
     end
   end
 
@@ -28,8 +28,16 @@ class Router
     print_manager_menu
     choice = gets.chomp.to_i
     print `clear`
-    
+
     route_manager_action(choice)
+  end
+
+  def display_delivery_guy_actions
+    print_delivery_guy_menu
+    choice = gets.chomp.to_i
+    print `clear`
+
+    route_delivery_guy_action(choice)
   end
 
   def print_manager_menu
@@ -62,7 +70,7 @@ class Router
     case choice
     when 1 then @orders_controller.list_employee_orders
     when 2 then @orders_controller.mark_as_delivered
-    when 3 then @customers_controller.add
+    # when 3 then @
     when 4 then @customers_controller.list
     # when 5 then @orders_controller.add
     # when 6 then @orders_controller.list
@@ -78,6 +86,7 @@ class Router
     when 2 then @meals_controller.list
     when 3 then @current_user = false
     when 4 then stop!
+    end
   end
 
   def stop!
